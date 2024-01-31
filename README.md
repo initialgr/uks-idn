@@ -1,5 +1,5 @@
 # UKS IDN Jonggol
-![alt text](https://github.com/initialgr/uks-idn/blob/main/Dashboard.png)
+![alt text](https://github.com/initialgr/uks-idn/blob/main/public/template/assets/img/dashboard.png)
  
 Ini adalah projek KKP dari Mahasiswa STIKOM CKI Jakarta, cabang IDN Jonggol
 Dibuat berdasarkan data yang dibutuhkan di UKS IDN Jonggol
