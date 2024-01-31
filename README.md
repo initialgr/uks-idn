@@ -1,4 +1,5 @@
 # UKS IDN Jonggol
+[![alt text]([http://url/to/img.png](https://drive.google.com/file/d/1KAp2DE2sUKx-bFRap-exXWX2PiZDMjIo/preview))](https://drive.google.com/file/d/1KAp2DE2sUKx-bFRap-exXWX2PiZDMjIo/preview)
  
 Ini adalah projek KKP dari Mahasiswa STIKOM CKI Jakarta, cabang IDN Jonggol
 Dibuat berdasarkan data yang dibutuhkan di UKS IDN Jonggol
