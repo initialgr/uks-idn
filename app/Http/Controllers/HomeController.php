@@ -26,7 +26,7 @@ class HomeController extends Controller
     public function index()
     {
         // UKS
-        $uksToday = Record::whereDate('created_at', today())->where('status', true)->count();
+        $uksToday = Record::where('status', true)->count();
         $uksYesterday = Record::whereDate('created_at', Carbon::yesterday())->where('status', true)->count();
         // Calculate percentage growth
         // $percentageGrowth = $uksYesterday != 0 ? (($uksToday - $uksYesterday) / $uksYesterday) * 100 : 0;
