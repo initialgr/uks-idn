@@ -82,7 +82,7 @@
                                         <td>{{ $row->drug->name }}&nbsp;{{ $row->keterangan }}
                                         </td>
                                         <td>
-                                            {{ $date }}
+                                            {{ date('d-m-Y', strtotime($row->created_at)) }}
                                         </td>
                                     </tr>
                                 @endforeach
