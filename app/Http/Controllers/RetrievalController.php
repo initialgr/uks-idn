@@ -27,11 +27,7 @@ class RetrievalController extends Controller
 
         $kosong = Drug::where('stok', 0)->get();
 
-        $date = $retrievals->get('created_at');
-        $date = Carbon::parse($date)->format('d-m-Y');
-
-
-        return view('retrieval.index', compact('retrievals', 'records', 'drugs', 'users', 'date', 'kosong'));
+        return view('retrieval.index', compact('retrievals', 'records', 'drugs', 'users', 'kosong'));
     }
 
     /**
