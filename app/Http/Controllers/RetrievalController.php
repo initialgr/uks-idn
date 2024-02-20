@@ -27,6 +27,10 @@ class RetrievalController extends Controller
 
         $kosong = Drug::where('stok', 0)->get();
 
+        // $date = $retrievals->get('created_at');
+        // $date = Carbon::parse($date)->format('d-m-Y');
+
+
         return view('retrieval.index', compact('retrievals', 'records', 'drugs', 'users', 'kosong'));
     }
 
@@ -50,28 +54,47 @@ class RetrievalController extends Controller
     {
         $data = $request->all();
 
+        $drug = Drug::find($request->drug_id);
+
+        // Check if the requested quantity exceeds available stock
+        if ($drug->stok < $request->quantity) {
+            return redirect()->route('retrieval.index')->with('kosong', 'Stok Obat tidak mencukupi');
+        }
+
         $validate = Validator::make($data, [
             'user_id' => 'required|numeric',
             'record_id' => 'required|numeric',
             'drug_id' => 'required|numeric',
-            'quantity' => 'required|numeric',
+            'quantity' => 'required|numeric|min:0', // Add min:1 rule for quantity
             'keterangan' => 'nullable|string|max:255',
+        ], [
+            'quantity.required' => 'Pastikan stok obat tersedia!.',
+            'quantity.numeric' => 'Tidak bisa berupa angka!.',
+            'quantity.min' => 'Jumlah tidak bisa kurang dari 1!.', // Custom message for quantity minimum validation
+            'keterangan.max' => 'Keterangan terlalu panjang.',
         ]);
-
-        $drug = Drug::find($request->drug_id);
-
-        if ($drug->stok < $request->quantity) {
-            return redirect()->route('retrieval.index')->with('kurang', 'Stok Obat tidak mencukupi');
-        }
-        $drug->stok -= $request->quantity;
-        $drug->save();
-
+        // Validate the request data
         if ($validate->fails()) {
             return redirect()->route('retrieval.index')->withInput()->withErrors($validate);
         }
+
+        // Check if reducing the stock will result in a negative value
+        if (($drug->stok - $request->quantity) < 0) {
+            return redirect()->route('retrieval.index')->with('kurang', 'Stok Obat tidak boleh kurang dari 0');
+        }
+
+        // Reduce the stock of the drug
+        $drug->stok -= $request->quantity;
+        $drug->save();
+
+        // Create the retrieval record
         Retrieval::create($data);
+
         return redirect()->route('retrieval.index')->with('status', 'Pengambilan Obat berhasil Dibuat');
     }
+
+
+
 
     /**
      * Display the specified resource.

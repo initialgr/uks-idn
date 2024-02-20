@@ -1,7 +1,7 @@
 @extends('layouts.template')
 
 @section('title')
-    Data Obat
+    Data Pengambilan Obat
 @endsection
 
 @section('content')
@@ -176,8 +176,8 @@
                         </div>
                         <div class="col-md-2">
                             <div class="form-floating">
-                                <input name="quantity" type="number" class="form-control" id="floatingQuantity"
-                                    required placeholder="Jumlah" value="{{ old('quantity') }}">
+                                <input name="age" type="number" class="form-control" id="floatingAge" required
+                                    placeholder="Jumlah" value="{{ old('quantity') }}" min="0" max="50">
                                 <label for="floatingQuantity">Jumlah</label>
                             </div>
                         </div>

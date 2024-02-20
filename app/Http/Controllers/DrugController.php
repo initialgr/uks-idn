@@ -43,23 +43,38 @@ class DrugController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->all();
-
-        $validate = Validator::make($data, [
-            'name' => 'required|string|max:255',
+        $rules = [
+            'name' => ['required', 'string', 'max:255', 'regex:/^[^\d]+$/'],
             'type' => 'required|string|max:100',
             'dose' => 'required|numeric',
             'unit' => 'required|string|max:100',
-            'stok' => 'required|numeric',
+            'stok' => [
+                'required',
+                'numeric',
+                function ($attribute, $value, $fail) {
+                    if ($value < 0) {
+                        $fail('Stok tidak boleh mines.');
+                    }
+                }
+            ],
             'satuan' => 'required|string|max:100',
-        ]);
+        ];
 
-        if ($validate->fails()) {
-            return redirect()->route('drug.index')->withInput()->withErrors($validate);
+        // Pesan validasi kustom
+        $customMessages = [
+            'name.regex' => 'Nama obat tidak boleh menggunakan angka.',
+            // Tambahkan pesan validasi kustom lainnya di sini sesuai kebutuhan
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $customMessages);
+
+        if ($validator->fails()) {
+            // Jika validasi gagal, kembalikan dengan pesan kesalahan
+            return redirect()->route('drug.index')->withInput()->withErrors($validator);
         }
-        Drug::create($data);
-        return redirect()->route('drug.index')->with('status', 'Obat berhasil Dibuat');
 
+        Drug::create($request->all());
+        return redirect()->route('drug.index')->with('status', 'Obat berhasil Dibuat');
     }
 
     /**
@@ -126,7 +141,7 @@ class DrugController extends Controller
     public function print(Request $request)
     {
         $drugs = Drug::paginate();
-        
+
         return view('drug.print', compact('drugs'));
     }
 

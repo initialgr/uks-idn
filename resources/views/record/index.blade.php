@@ -73,8 +73,6 @@
                                                 <span class="badge bg-primary text-white">Siswa SMP</span>
                                             @elseif ($row->school == 'siswa-smk')
                                                 <span class="badge bg-info text-white">Siswa SMK</span>
-                                            @elseif ($row->school == 'pegawai')
-                                                <span class="badge bg-secondary text-white">Pegawai</span>
                                             @else
                                                 {{ $row->school }}
                                             @endif
@@ -146,17 +144,19 @@
                         <div class="col-md-2">
                             <div class="form-floating">
                                 <input name="age" type="number" class="form-control" id="floatingAge" required
-                                    placeholder="Umur" value="{{ old('umur') }}" max="50">
+                                    placeholder="Umur" value="{{ old('umur') }}" min="10" max="24">
                                 <label for="floatingAge">Umur</label>
                             </div>
                         </div>
                         <div class="col-md-10">
                             <div class="form-floating">
                                 <select name="school" class="form-select" id="floatingSchool" aria-label="State" required>
-                                    <option value="" disabled selected hidden>Pilih Unit</option>
-                                    <option value="siswa-smp">Siswa SMP</option>
-                                    <option value="siswa-smk">Siswa SMK</option>
-                                    <option value="pegawai">Pegawai</option>
+                                    <option value="" disabled {{ old('school') ? '' : 'selected' }} hidden>Pilih Unit
+                                    </option>
+                                    <option value="siswa-smp" {{ old('school') == 'siswa-smp' ? 'selected' : '' }}>Siswa
+                                        SMP</option>
+                                    <option value="siswa-smk" {{ old('school') == 'siswa-smk' ? 'selected' : '' }}>Siswa
+                                        SMK</option>
                                 </select>
                                 <label for="floatingSchool">Unit</label>
                             </div>

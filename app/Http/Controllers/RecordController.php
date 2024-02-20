@@ -42,13 +42,15 @@ class RecordController extends Controller
         $data = $request->all();
 
         $validate = Validator::make($data, [
-            'name' => 'required|string|max:255',
-            'age' => 'required|numeric',
+            'name' => 'required|string|regex:/^[A-Za-z\s]+$/i|max:255',
+            'age' => 'required|numeric|min:10',
             'school' => 'required|string|max:255',
             'allergy' => 'nullable|string|max:255',
             'complaint' => 'required|string|max:255',
             'ph_inspect' => 'nullable|string|max:255',
             'diagnose' => 'required|string|max:255',
+        ], [
+            'name.regex' => 'Nama hanya boleh berisi huruf dan spasi!',
         ]);
 
         if ($validate->fails()) {
