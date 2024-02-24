@@ -8,14 +8,13 @@ Dibuat berdasarkan data yang dibutuhkan di UKS IDN Jonggol
 
 # Instalasi
 
--   git clone
+-   git clone https://github.com/initialgr/uks-idn.git
 -   composer install
 
 # Konfigurasi Tema dan Database
 
 1. Copy paste .env-example menjadi .env
-2. Buat database baru di phpmyadmin atau adminer atau di mysqlnya
-3. Buat baru dengan nama sesuai dengan database yang ada di .env yaitu uks-idn
+2. Buat database baru di phpmyadmin atau adminer atau di mysqlnya dengan nama uks-idn
 4. php artisan migrate
 5. php artisan db:seed --class=AdministratorSeeder
 
