@@ -177,7 +177,8 @@
                         <div class="col-md-2">
                             <div class="form-floating">
                                 <input name="age" type="number" class="form-control" id="floatingAge" required
-                                    placeholder="Jumlah" value="{{ old('quantity') }}" min="0" max="50">
+                                    placeholder="Jumlah" value="{{ old('quantity') }}" min="0"
+                                    max="50"oninput="validity.valid||(value='');">
                                 <label for="floatingQuantity">Jumlah</label>
                             </div>
                         </div>

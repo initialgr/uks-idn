@@ -102,7 +102,8 @@
                         <div class="col-md-12">
                             <div class="form-floating">
                                 <input name="name" type="text" class="form-control" id="floatingName" required
-                                    placeholder="Nama" value="{{ old('name') }}">
+                                    pattern="[A-Za-z\s]+" title="Nama hanya dapat berisi huruf dan spasi" placeholder="Nama"
+                                    value="{{ old('name') }}">
                                 <label for="floatingName">Nama</label>
                             </div>
                         </div>
@@ -110,20 +111,25 @@
                             <div class="form-floating">
                                 <select name="type" class="form-select" id="floatingType"
                                     aria-label="Floating label select example" required>
-                                    <option value="" disabled selected hidden>Pilih Jenis</option>
-                                    <option value="Tablet">Tablet</option>
-                                    <option value="Kapsul">Kapsul</option>
-                                    <option value="Sirup">Sirup</option>
-                                    <option value="Salep">Salep</option>
-                                    <option value="Krim">Krim</option>
-                                    <option value="Injeksi">Injeksi</option>
-                                    <option value="Infus">Infus</option>
-                                    <option value="Tetes">Tetes</option>
-                                    <option value="Inhalasi">Inhalasi</option>
-                                    <option value="Suppositoria">Suppositoria</option>
-                                    <option value="Emulsi">Emulsi</option>
-                                    <option value="Larutan">Larutan</option>
-                                    <option value="Lainnya">Lainnya</option>
+                                    <option value="" disabled hidden>Pilih Jenis</option>
+                                    <option value="Tablet" {{ old('type') == 'Tablet' ? 'selected' : '' }}>Tablet</option>
+                                    <option value="Kapsul" {{ old('type') == 'Kapsul' ? 'selected' : '' }}>Kapsul</option>
+                                    <option value="Sirup" {{ old('type') == 'Sirup' ? 'selected' : '' }}>Sirup</option>
+                                    <option value="Salep" {{ old('type') == 'Salep' ? 'selected' : '' }}>Salep</option>
+                                    <option value="Krim" {{ old('type') == 'Krim' ? 'selected' : '' }}>Krim</option>
+                                    <option value="Injeksi" {{ old('type') == 'Injeksi' ? 'selected' : '' }}>Injeksi
+                                    </option>
+                                    <option value="Infus" {{ old('type') == 'Infus' ? 'selected' : '' }}>Infus</option>
+                                    <option value="Tetes" {{ old('type') == 'Tetes' ? 'selected' : '' }}>Tetes</option>
+                                    <option value="Inhalasi" {{ old('type') == 'Inhalasi' ? 'selected' : '' }}>Inhalasi
+                                    </option>
+                                    <option value="Suppositoria" {{ old('type') == 'Suppositoria' ? 'selected' : '' }}>
+                                        Suppositoria</option>
+                                    <option value="Emulsi" {{ old('type') == 'Emulsi' ? 'selected' : '' }}>Emulsi</option>
+                                    <option value="Larutan" {{ old('type') == 'Larutan' ? 'selected' : '' }}>Larutan
+                                    </option>
+                                    <option value="Lainnya" {{ old('type') == 'Lainnya' ? 'selected' : '' }}>Lainnya
+                                    </option>
                                 </select>
                                 <label for="floatingType">Jenis</label>
                             </div>
@@ -131,7 +137,8 @@
                         <div class="col-md-6">
                             <div class="form-floating">
                                 <input name="dose" type="number" class="form-control" id="floatingDose" required
-                                    placeholder="Dosis" value="{{ old('dose') }}">
+                                    placeholder="Dosis" value="{{ old('dose') }}" min="0"
+                                    oninput="validity.valid||(value='');">
                                 <label for="floatingDose">Dosis</label>
                             </div>
                         </div>
@@ -140,17 +147,18 @@
                                 <select name="unit" class="form-select" id="floatingUnit" required
                                     aria-label="Floating label select example">
                                     <option value="" selected disabled hidden>Pilih</option>
-                                    <option value="mg">mg</option>
-                                    <option value="ml">ml</option>
-                                    <option value="gram">gram</option>
+                                    <option value="mg" @if (old('unit') == 'mg') selected @endif>mg</option>
+                                    <option value="ml" @if (old('unit') == 'ml') selected @endif>ml</option>
+                                    <option value="gram" @if (old('unit') == 'gram') selected @endif>gram</option>
                                 </select>
                                 <label for="floatingUnit">Satuan</label>
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="form-floating">
-                                <input max="100" name="stok" type="number" class="form-control" required
-                                    id="floatingStok" placeholder="Stok" value="{{ old('stok') }}">
+                                <input name="stok" type="number" class="form-control" required id="floatingStok"
+                                    placeholder="Stok" value="{{ old('stok') }}" min="0"
+                                    oninput="validity.valid||(value='');">
                                 <label for="floatingStok">Stok</label>
                             </div>
                         </div>
@@ -158,12 +166,12 @@
                             <div class="form-floating">
                                 <select name="satuan" class="form-select" id="floatingSatuan" required
                                     aria-label="Floating label select example">
-                                    <option value="" selected disabled hidden>Pilih</option>
-                                    <option value="pack">pack</option>
-                                    <option value="strip">strip</option>
-                                    <option value="botol">botol</option>
-                                    <option value="ampul">ampul</option>
-                                    <option value="kotak">kotak</option>
+                                    <option value="" disabled hidden>Pilih</option>
+                                    <option value="pack" {{ old('satuan') == 'pack' ? 'selected' : '' }}>pack</option>
+                                    <option value="strip" {{ old('satuan') == 'strip' ? 'selected' : '' }}>strip</option>
+                                    <option value="botol" {{ old('satuan') == 'botol' ? 'selected' : '' }}>botol</option>
+                                    <option value="ampul" {{ old('satuan') == 'ampul' ? 'selected' : '' }}>ampul</option>
+                                    <option value="kotak" {{ old('satuan') == 'kotak' ? 'selected' : '' }}>kotak</option>
                                 </select>
                                 <label for="floatingSatuan">Satuan</label>
                             </div>

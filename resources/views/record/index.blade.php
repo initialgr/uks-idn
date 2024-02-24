@@ -136,11 +136,17 @@
                         {{ csrf_field() }}
                         <div class="col-md-12">
                             <div class="form-floating">
-                                <input name="name" type="text" class="form-control" id="floatingName" required
+                                <input name="name" type="text" class="form-control" id="floatingName"
+                                    pattern="[A-Za-z\s]+" title="Nama hanya dapat berisi huruf dan spasi" required
                                     placeholder="Nama" value="{{ old('name') }}">
                                 <label for="floatingName">Nama</label>
                             </div>
+                            @error('name')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
                         </div>
+
+
                         <div class="col-md-2">
                             <div class="form-floating">
                                 <input name="age" type="number" class="form-control" id="floatingAge" required
@@ -163,42 +169,55 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-floating">
-                                <input name="allergy" type="text" class="form-control" id="floatingAllergy"
-                                    placeholder="Riwayat Alergi" value="{{ old('allergy') }}">
+                                <textarea name="allergy" class="form-control" id="floatingAllergy" placeholder="Riwayat Alergi"
+                                    style="height: 100px;">{{ old('allergy') }}</textarea>
                                 <label for="floatingAllergy">Riwayat Alergi</label>
                                 <p style="font-size: 12px" class="text-danger">&nbsp;*Jika tidak ada dilewat saja</p>
                             </div>
                         </div>
-                        {{-- <div class="col-md-12">
-                            <div class="form-floating">
-                                <select name="status" class="form-select" id="floatingStatus" aria-label="State">
-                                    <option value="1">Di UKS</option>
-                                    <option value="0">Tidak Di UKS</option>
-                                </select>
-                                <label for="floatingStatus">Status</label>
-                            </div>
-                        </div> --}}
+
                         <div class="col-md-12">
                             <div class="form-floating">
-                                <textarea name="complaint" class="form-control" placeholder="Keluhan" id="floatingComplaint" required
+                                <textarea name="complaint" class="form-control" id="floatingComplaint" placeholder="Keluhan" required
                                     style="height: 100px">{{ old('complaint') }}</textarea>
                                 <label for="floatingComplaint">Keluhan</label>
                             </div>
                         </div>
+
                         <div class="col-md-12">
                             <div class="form-floating">
-                                <textarea name="ph_inspect" class="form-control" placeholder="Pemeriksaan Fisik" required
-                                    id="floatingPhysicalExamination" style="height: 100px">{{ old('ph_inspect') }}</textarea>
+                                <textarea name="ph_inspect" class="form-control" id="floatingPhysicalExamination" placeholder="Pemeriksaan Fisik"
+                                    required style="height: 100px">{{ old('ph_inspect') }}</textarea>
                                 <label for="floatingPhysicalExamination">Pemeriksaan Fisik</label>
                             </div>
                         </div>
+
                         <div class="col-md-12">
                             <div class="form-floating">
-                                <textarea name="diagnose" class="form-control" placeholder="Diagnosa" required id="floatingDiagnosis"
+                                <textarea name="diagnose" class="form-control" id="floatingDiagnosis" placeholder="Diagnosa" required
                                     style="height: 100px">{{ old('diagnose') }}</textarea>
                                 <label for="floatingDiagnosis">Diagnosa</label>
                             </div>
                         </div>
+
+                        <script>
+                            // Get the textarea elements
+                            var textareaElements = document.querySelectorAll('textarea');
+
+                            // Add event listener for input events on each textarea
+                            textareaElements.forEach(function(textareaElement) {
+                                textareaElement.addEventListener('input', function(event) {
+                                    // Get the current value of the textarea
+                                    var currentValue = event.target.value;
+
+                                    // Replace any characters that are not letters or spaces with an empty string
+                                    var sanitizedValue = currentValue.replace(/[^A-Za-z\s]/g, '');
+
+                                    // Update the value of the textarea to contain only letters and spaces
+                                    event.target.value = sanitizedValue;
+                                });
+                            });
+                        </script>
                         <div class="d-grid gap-2">
                             <button type="submit" class="btn btn-primary">Simpan</button>
                         </div>

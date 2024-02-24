@@ -45,12 +45,16 @@ class RecordController extends Controller
             'name' => 'required|string|regex:/^[A-Za-z\s]+$/i|max:255',
             'age' => 'required|numeric|min:10',
             'school' => 'required|string|max:255',
-            'allergy' => 'nullable|string|max:255',
-            'complaint' => 'required|string|max:255',
-            'ph_inspect' => 'nullable|string|max:255',
-            'diagnose' => 'required|string|max:255',
+            'allergy' => 'nullable|string|regex:/^[A-Za-z\s]+$/i|max:255',
+            'complaint' => 'required|string|regex:/^[A-Za-z\s]+$/i|max:255',
+            'ph_inspect' => 'nullable|string|regex:/^[A-Za-z\s]+$/i|max:255',
+            'diagnose' => 'required|string|regex:/^[A-Za-z\s]+$/i|max:255',
         ], [
             'name.regex' => 'Nama hanya boleh berisi huruf dan spasi!',
+            'allergy.regex' => 'Alergi hanya boleh berisi huruf dan spasi!',
+            'complaint.regex' => 'Komplain hanya boleh berisi huruf dan spasi!',
+            'ph_inspect.regex' => 'Pemeriksaan Fisik hanya boleh berisi huruf dan spasi!',
+            'diagnose.regex' => 'Diagnosa hanya boleh berisi huruf dan spasi!',
         ]);
 
         if ($validate->fails()) {

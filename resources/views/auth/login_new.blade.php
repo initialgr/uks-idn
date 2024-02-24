@@ -69,21 +69,36 @@
                                     <form action="{{ route('login') }}" method="POST" class="row g-3 needs-validation"
                                         novalidate>
                                         @csrf
+                                        @if ($errors->has('username'))
+                                            <div class="alert alert-danger">
+                                                Username atau Password salah!
+                                            </div>
+                                        @endif
                                         <div class="col-12">
                                             <label for="yourUsername" class="form-label">Username</label>
                                             <div class="input-group has-validation">
                                                 <span class="input-group-text" id="inputGroupPrepend">@</span>
-                                                <input type="text" name="username" class="form-control"
+                                                <input type="text" name="username"
+                                                    class="form-control @error('username') is-invalid @enderror"
                                                     id="yourUsername" required>
-                                                <div class="invalid-feedback">Please enter your username.</div>
+                                                @if (old('username') == '')
+                                                    <div class="invalid-feedback">Username wajib diisi.</div>
+                                                @endif
                                             </div>
                                         </div>
 
                                         <div class="col-12">
                                             <label for="yourPassword" class="form-label">Password</label>
-                                            <input type="password" name="password" class="form-control"
-                                                id="yourPassword" required>
-                                            <div class="invalid-feedback">Please enter your password!</div>
+                                            <div class="input-group has-validation">
+                                                <input type="password" name="password"
+                                                    class="form-control @error('password') is-invalid @enderror"
+                                                    id="yourPassword" required>
+                                                @if ($errors->has('password'))
+                                                    <div class="invalid-feedback">password salah</div>
+                                                @elseif(old('password') == '')
+                                                    <div class="invalid-feedback">Password wajib diisi.</div>
+                                                @endif
+                                            </div>
                                         </div>
 
                                         <div class="col-12">
