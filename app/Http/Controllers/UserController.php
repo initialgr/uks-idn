@@ -39,13 +39,21 @@ class UserController extends Controller
     {
         $data = $request->all();
 
-        $validate = Validator::make($data, [
-            'name' => 'required|string|max:255',
-            'username' => 'required|string|max:100|unique:users',
-            'level' => 'required',
-            'email' => 'nullable|email|unique:users',
-            'password' => 'required|min:6',
-        ]);
+        $validate = Validator::make(
+            $data,
+            [
+                'name' => 'required|string|max:255',
+                'username' => 'required|string|max:100|unique:users',
+                'level' => 'required',
+                'email' => 'nullable|email|unique:users',
+                'password' => 'required|min:6',
+            ],
+            [
+                'username.unique'=> "Username ini sudah dipakai!",
+                'password.min' => "Password minimal 6 karakter."
+            ]
+
+        );
 
         if ($validate->fails()) {
             return redirect()->route('user.index')->withInput()->withErrors($validate);

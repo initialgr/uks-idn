@@ -140,10 +140,25 @@
                                     pattern="[A-Za-z\s]+" title="Nama hanya dapat berisi huruf dan spasi" required
                                     placeholder="Nama" value="{{ old('name') }}">
                                 <label for="floatingName">Nama</label>
+                                <div style="font-size: 12px" id="nameAlert" class="text-danger d-none">*Nama tidak boleh
+                                    menggunakan angka</div>
                             </div>
-                            @error('name')
-                                <div class="text-danger">{{ $message }}</div>
-                            @enderror
+                            <script>
+                                document.addEventListener("DOMContentLoaded", function() {
+                                    document.getElementById("floatingName").addEventListener("keyup", function() {
+                                        var password = this.value;
+                                        var alertDiv = document.getElementById("nameAlert");
+                                        var containsNumber = /\d/.test(password);
+                                        if (containsNumber) {
+                                            alertDiv.classList.remove("d-none");
+                                        } else {
+                                            alertDiv.classList.add("d-none");
+                                        }
+                                    });
+                                });
+                            </script>
+
+
                         </div>
 
 
@@ -157,7 +172,8 @@
                         <div class="col-md-10">
                             <div class="form-floating">
                                 <select name="school" class="form-select" id="floatingSchool" aria-label="State" required>
-                                    <option value="" disabled {{ old('school') ? '' : 'selected' }} hidden>Pilih Unit
+                                    <option value="" disabled {{ old('school') ? '' : 'selected' }} hidden>Pilih
+                                        Unit
                                     </option>
                                     <option value="siswa-smp" {{ old('school') == 'siswa-smp' ? 'selected' : '' }}>Siswa
                                         SMP</option>

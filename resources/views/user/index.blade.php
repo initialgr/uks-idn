@@ -98,8 +98,25 @@
                                 <input name="password" type="password" class="form-control" id="floatingPassword"
                                     placeholder="Password">
                                 <label for="floatingPassword">Password</label>
+                                <div style="font-size: 12px" id="passwordAlert" class="text-danger d-none">*Password minimal
+                                    6 karakter</div>
                             </div>
                         </div>
+
+                        <script>
+                            document.addEventListener("DOMContentLoaded", function() {
+                                document.getElementById("floatingPassword").addEventListener("keyup", function() {
+                                    var password = this.value;
+                                    var alertDiv = document.getElementById("passwordAlert");
+                                    if (password.length < 6) {
+                                        alertDiv.classList.remove("d-none");
+                                    } else {
+                                        alertDiv.classList.add("d-none");
+                                    }
+                                });
+                            });
+                        </script>
+
                         <div class="col-md-12">
                             <div class="form-floating">
                                 <select name="level" class="form-select" id="floatingLevel" aria-label="State">
