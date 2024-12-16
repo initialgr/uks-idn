@@ -20,7 +20,7 @@ Dibuat berdasarkan data yang dibutuhkan di UKS IDN Jonggol
 
 # Login
 
-Admin : id = admin, pw = apaajabolehdong
+Admin : id = admin, pw = admin
 
 # Copyright
 
