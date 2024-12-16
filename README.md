@@ -17,6 +17,7 @@ Dibuat berdasarkan data yang dibutuhkan di UKS IDN Jonggol
 2. Buat database baru di phpmyadmin atau adminer atau di mysqlnya dengan nama uks-idn
 4. php artisan migrate
 5. php artisan db:seed --class=AdministratorSeeder
+6. sesuaikan jika tidak menggunakan Xampp atau yang lainnya pastikan APP_URL=http://127.0.0.1:8000 dan ASSET_URL=null di file .env kemudian jalankan php artisan serve
 
 # Login
 
